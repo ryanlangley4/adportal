@@ -1,5 +1,5 @@
 <?php
-include "db_pdo.php";
+include "/includes/db_pdo.php";
 
 if(isset($_POST['email'])) {
 	$email = $_POST['email'];
@@ -10,7 +10,7 @@ if(isset($_POST['email'])) {
 			$time_expire = date("h");
 			$time_expire += "2";
 			$hash = hash('ripemd160', "$seed");
-			$query = $DBH->prepare('INSERT INTO pass_setter.hashtable (hash, time_expire, email) VALUES ( :hash, :time_expire, :email);');
+			$query = $DBH->prepare('INSERT INTO hashtable (hash, time_expire, email) VALUES ( :hash, :time_expire, :email);');
 			$query->bindvalue(':hash',"$hash");
 			$query->bindvalue(':time_expire',"$time_expire");
 			$query->bindvalue(':email',"$email");
@@ -27,7 +27,7 @@ if(isset($_POST['email'])) {
 } elseif(isset($_POST['password'])  && (isset($_POST['hash']))) {
 	$hash = $_POST['hash'];
 	$password = $_POST['password'];
-	$query = $DBH->prepare('select * from pass_setter.hashtable WHERE hash LIKE :hash;');
+	$query = $DBH->prepare('select * from hashtable WHERE hash LIKE :hash;');
 	$query->bindParam(':hash', $hash, PDO::PARAM_STR);
 	$query->execute();
 	$obj = $query->fetchObject();
