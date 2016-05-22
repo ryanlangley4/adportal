@@ -11,7 +11,7 @@ include "/includes/db_pdo.php";
 
     <div id="header">
     <div class="logo"><img src="/style/images/logo.gif" width="158" height="54" alt="Logo"><bR><span style ="font-family: Arial, Helvetica, sans-serif;	font-size: 14px; color:#000000;"></span></div>
-	<div class="pageTitle"><strong>Password setter</strong><br></div>
+	<div class="pageTitle"><strong>Ad Portal Password Setter</strong><br></div>
 </div>
 
 <?php
@@ -24,6 +24,20 @@ if(isset($_GET['hash'])) {
     $time_expire = $obj->time_expire;
         
     if(date("h") <= "$time_expire") {
+        echo "<div align=\"left\"><p>Basic Password compatability must be met or the process will need to be restarted<br>";
+        echo "Passwords must not contain the user's entire samAccountName (Account Name) value or entire displayName (Full Name) value. Both checks are not case sensitive<br>";
+        ?>
+        Passwords must contain characters from three of the following five categories:<br />
+        <ul>
+        <li class="unordered">Uppercase characters of European languages (A through Z, with diacritic marks, Greek and Cyrillic characters)<br /><br /></li>
+        <li class="unordered">Lowercase characters of European languages (a through z, sharp-s, with diacritic marks, Greek and Cyrillic characters)<br /><br /></li>
+        <li class="unordered">Base 10 digits (0 through 9)<br /><br /></li>
+        <li class="unordered">Nonalphanumeric characters: ~!@#$%^&amp;*_-+=`|\(){}[]:;"'&lt;&gt;,.?/<br /><br /></li>
+        <li class="unordered">Any Unicode character that is categorized as an alphabetic character but is not uppercase or lowercase. This includes Unicode characters from Asian languages.<br /><br /></li></ul></li>
+        </ul>
+        <a href="https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx"> full regirements can be found here </a></p>
+        </div>
+        <?php
         echo "<center><p>Please enter your new password:<br></p>";
         echo "<form name=\"hashgenerate\" action=\"hashgen.php\" method=\"post\">";
 		echo "<input type=\"password\" name=\"password\" style=\"width: 300px;\">";

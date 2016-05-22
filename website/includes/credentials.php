@@ -4,6 +4,6 @@
 $user = "script";
 $pass = "password";
 $host = "localhost";
-$database = "password_setter";
+$database = "adportal";
 
 ?>
