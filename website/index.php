@@ -15,15 +15,16 @@ include "/includes/db_pdo.php";
 </div>
 
 <?php
+
 if(isset($_GET['hash'])) {
     $hash = $_GET['hash'];
     $query = $DBH->prepare('select * from hashtable WHERE hash LIKE :hash;');
-    $query->bindParam(':hash', $hash, PDO::PARAM_STR);
+    $query->bindParam(':hash', $hash);
     $query->execute();
     $obj = $query->fetchObject();
     $time_expire = $obj->time_expire;
-        
-    if(date("h") <= "$time_expire") {
+    #deals with ackward clock roll over at 11pm & 12pm.. Maybe I'll think of a better way later
+    if ((date('H') <= "$time_expire") || (date('H', strtotime('+2 hours')) == "$time_expire") || (date('H', strtotime('+1 hours')) == "$time_expire")) {
         echo "<div align=\"left\"><p>Basic Password compatability must be met or the process will need to be restarted<br>";
         echo "Passwords must not contain the user's entire samAccountName (Account Name) value or entire displayName (Full Name) value. Both checks are not case sensitive<br>";
         ?>
@@ -35,7 +36,7 @@ if(isset($_GET['hash'])) {
         <li class="unordered">Nonalphanumeric characters: ~!@#$%^&amp;*_-+=`|\(){}[]:;"'&lt;&gt;,.?/<br /><br /></li>
         <li class="unordered">Any Unicode character that is categorized as an alphabetic character but is not uppercase or lowercase. This includes Unicode characters from Asian languages.<br /><br /></li></ul></li>
         </ul>
-        <a href="https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx"> full regirements can be found here </a></p>
+        <a href="https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx"><font color="blue">full requirements can be found here</font></a></p>
         </div>
         <?php
         echo "<center><p>Please enter your new password:<br></p>";
