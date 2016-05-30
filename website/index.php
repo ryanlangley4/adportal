@@ -1,5 +1,5 @@
 <?php
-include "/includes/db_pdo.php";
+include "/includes/library.php";
 ?>
 <html>
 <head>

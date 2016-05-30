@@ -1,14 +1,15 @@
 <?php
-include "/includes/db_pdo.php";
+include "/includes/library.php";
 
 if(isset($_POST['email'])) {
 $email = $_POST['email'];
     
     if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $seed = rand(0, 1000);
-    $seed = $seed+$email+mktime();
-    $time_expire = date('H', strtotime('+2 hours'));
+    $seed = generateseed();
+    $seed = "$seed" . "$email";
+    echo $seed;
     $hash = hash('ripemd160', "$seed");
+    $time_expire = date('H', strtotime('+2 hours'));
     $query = $DBH->prepare('INSERT INTO hashtable (hash, time_expire, email) VALUES ( :hash, :time_expire, :email);');
     $query->bindvalue(':hash',"$hash");
     $query->bindvalue(':time_expire',"$time_expire");
@@ -29,10 +30,15 @@ $query->execute();
 $obj = $query->fetchObject();
 $email = $obj->email;
 $id = $obj->id;
-echo $id;
     if($id != "") {
-    echo "$id, $email, $password";
-    die();
+    $value = file_get_contents("ps.php?email=$email&password=$password&id=$id");
+        if (strpos($value,'Success') !== false) {
+		echo "Your password has been set in AD. Allow the system a few minutes to replicate the change and log in.";
+		} else {
+		echo "There was an error setting the password.<br>";
+		echo "Please <a href=\"index.php\">try again</a>, or contact your administrator";
+		die();
+		}
     } else {
     echo "The hash has expired.<br>";
     echo "Please <a href=\"index.php\">try again</a>, or contact your administrator";
