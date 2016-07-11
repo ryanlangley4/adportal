@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 27, 2016 at 11:46 PM
+-- Generation Time: Jul 10, 2016 at 05:35 PM
 -- Server version: 5.7.12-log
 -- PHP Version: 7.0.5
 
@@ -34,12 +34,17 @@ CREATE TABLE `hashtable` (
   `notified` varchar(10) NOT NULL DEFAULT 'FALSE'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `hashtable`
+-- Table structure for table `tempcooldown`
 --
 
-INSERT INTO `hashtable` (`id`, `hash`, `time_expire`, `email`, `notified`) VALUES
-(1, 'e1801e9cc9f508090ef54460cc8b1a5daeb4fad4', '01', 'ryan.langley4@gmail.com', 'TRUE');
+CREATE TABLE `tempcooldown` (
+  `id` int(253) NOT NULL,
+  `emailaddress` varchar(253) NOT NULL,
+  `cooldown_expire` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -53,6 +58,12 @@ ALTER TABLE `hashtable`
   ADD UNIQUE KEY `hash` (`hash`);
 
 --
+-- Indexes for table `tempcooldown`
+--
+ALTER TABLE `tempcooldown`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -60,7 +71,12 @@ ALTER TABLE `hashtable`
 -- AUTO_INCREMENT for table `hashtable`
 --
 ALTER TABLE `hashtable`
-  MODIFY `id` int(253) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(253) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tempcooldown`
+--
+ALTER TABLE `tempcooldown`
+  MODIFY `id` int(253) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

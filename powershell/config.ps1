@@ -34,7 +34,9 @@ $company_name = "Company"
 #This adjusts how many spammed messages are needed before the email is put on cool down and the user can not use the system for a while
 $cooldown_period_hours = 1
 $threshold = 5
+$alert_on_cooldown_block = $True
 $alert_email = "Helpdesk@company.com"
+
 
 #Groups that can not have password changed
 $protected_group_list = ("Domain Admins")

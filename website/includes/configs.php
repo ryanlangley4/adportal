@@ -1,6 +1,7 @@
 <?php
-#Temperary place holder will be replaced by automated installer to be written
-
 #Powershell script location:
-$script_path = "C:\scripts";
+$script_path = "C:\\scripts\\password_set.ps1";
+
+#Standalone or duel system configure
+$standalone = $true
 ?>
